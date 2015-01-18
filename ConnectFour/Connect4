@@ -1,0 +1,144 @@
+import zen.core.Zen;
+
+
+public class ConnectFour {
+	static int[][] board; 
+	static int current =1;
+	static int width = 7; 
+	static int height = 6;
+	
+
+	public static void main(String[] args) {
+		setup();
+		while(true){
+			draw();
+			if (Zen.isMouseClicked()){
+				int x = Zen.getMouseX()/100;
+				drop(x);
+				draw();
+				Zen.sleep(500);
+				if(winner()>0){
+					Zen.sleep(5000);
+					board = new int[7][6];
+				}
+			}
+		}
+
+	}
+	public static int winner(){
+		for(int x = 0; x<4 ; x++){
+			for(int y = 0; y <6; y++){
+			if(board[x][y] != 0){
+				if(board[x][y]== board[x +1][y]&&
+					board[x][y] == board[x+2][y]&&
+					board[x][y] == board [x + 3][y]){
+					return board[x][y];
+				}
+			}
+			}
+		}
+		for(int x = 0; x < 7; x++){
+			for(int y=0; y<3; y++){
+				if(board[x][y] != 0) {
+					if(board[x][y]== board[x][y+1]&&
+						board[x][y]== board[x][y+2]&&
+						board[x][y]== board[x][y+3]){
+						return board[x][y];
+					}
+				}
+			}
+		}
+		for(int x = 0; x < 4; x++){
+			for(int y=0; y<3; y++){
+				if(board[x][y] != 0) {
+					if(board[x][y]== board[x+1][y+1]&&
+						board[x][y]== board[x+2][y+2]&&
+						board[x][y]== board[x+3][y+3]){
+						return board[x][y];
+					}
+				}
+			}
+		}
+		for(int x = 0; x < 4; x++){
+			for(int y=3; y<6; y++){
+				if(board[x][y] != 0) {
+					if(board[x][y]== board[x+1][y-1]&&
+						board[x][y]== board[x+2][y-2]&&
+						board[x][y]== board[x+3][y-3]){
+						return board[x][y];
+					}
+				}
+			}
+		}
+		return 0;
+		 
+	}
+
+	public static void setup(){
+		Zen.create(700, 600);
+		board = new int[7][6];
+	
+	}
+	public static void drop(int x){
+		if(x < 0 || x > 6 || board[x][0] !=0){
+			return;
+		}
+		int y = 0;
+		while(y< 5 && board[x][y+1]==0){
+			y++;
+		}
+		board[x][y]=current;
+		if( current == 1){
+			current= 2;
+		}
+		else {
+			current =1;
+		}
+	}
+
+	public static void draw() {
+		Zen.setBackground("yellow");
+		Zen.setColor("black");
+		for(int x= 0; x <7; x = x+ 1){
+			for(int y= 0; y<6; y= y+ 1){
+				if(board[x][y]==0){
+					Zen.setColor("black");
+				}
+				if(board[x][y] == 1){
+					Zen.setColor("red");
+				}
+				else if(board[x][y]==2){
+					Zen.setColor("blue");
+				}
+				Zen.fillOval(10+ x*100, 10+ y*100, 80, 80);
+			}
+
+		}
+		int win= winner();
+		if(win>0){
+			String text = "";
+			if(win == 1){
+				Zen.setColor("red");
+				text = "Red Wins!";
+			}
+			else{
+				Zen.setColor("blue");
+				text = "Blue Wins!";
+			}
+			Zen.setColor("white");
+			Zen.fillRect(0, 0, 700, 100);
+			Zen.setColor("Black");
+			Zen.setFont("Arial", 20);
+			Zen.drawText(text, 300, 30);
+			
+			
+		}
+		Zen.buffer(30);
+	}
+
+
+
+}
+
+
+
