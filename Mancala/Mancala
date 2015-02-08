@@ -297,6 +297,7 @@ public class Mancala {
 				mancala[13] += mancala[i];
 				mancala[i] = 0;
 			}
+			win();
 		}
 		else if (checkEmpty2())
 		{
@@ -305,6 +306,7 @@ public class Mancala {
 				mancala[6] += mancala[i];
 				mancala[i] = 0;
 			}
+			win();
 		}
 
 
@@ -340,6 +342,34 @@ public class Mancala {
 			return true;
 
 		return false;		
+	}
+	public static void win(){
+		Zen.setFont("arial", 65);
+		if (mancala[6]> mancala[13]){
+			Zen.setColor("white");
+			Zen.fillRect(0, 0, 800, 300);
+			Zen.setColor("black");
+			Zen.drawText("Player 1 wins", 300, 150);
+		}
+		else if
+			(mancala[6]< mancala[13]){
+			Zen.setColor("white");
+			Zen.fillRect(0, 0, 800, 300);
+			Zen.setColor("black");
+			Zen.drawText("Player 2 wins", 300, 150);
+		}
+		else{
+			Zen.setColor("white");
+			Zen.fillRect(0, 0, 800, 300);
+			Zen.setColor("black");
+			Zen.drawText("Draw", 300, 150);
+
+		}
+			
+			
+			
+			
+			
 	}
 
 }
