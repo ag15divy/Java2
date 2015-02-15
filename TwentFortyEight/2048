@@ -1,0 +1,93 @@
+import zen.core.Zen;
+
+
+public class game2448 {
+	static int[][] grid = new int[4][4];
+	static int count = 0;
+
+	public static void main(String[] args) {
+		Zen.create(400,400);
+		Zen.setFont("arial", 50);
+		setup();
+		
+		while(true)
+		{
+			draw();
+		}
+	}
+	
+	public static void draw()
+	{
+		for(int x= 0; x <4; x++)
+		{
+			for(int y = 0; y <4; y++)
+			{
+				if ((x + y)%2 == 0 )
+				{
+					Zen.setColor("blue");
+					Zen.fillRect(x*100, y*100, 100, 100);
+				}
+				
+				if (grid[x][y]!= 0){
+					Zen.setColor("white");
+					Zen.drawText(""+ grid[x][y], x*100+40, y*100+65);
+				}
+			}
+		}
+		Zen.buffer(1);
+	}
+
+	public static void setup(){
+		loop: while(count<2){
+			for(int x= 0; x <4; x++)
+			{
+				for(int y = 0; y <4; y++)
+				{
+					if(count==2)
+						break loop;
+
+					if(Zen.dice(4) == 1){
+						if(Zen.dice(2) == 1){
+							grid[x][y] = 2;
+							count++;
+							
+						}
+						else { 
+							grid[x][y] = 4;
+							count++;
+
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+	
+
+	public static void checkkeys() {
+		if( Zen.isKeyPressed("right"))
+		{ 
+			
+			
+
+		}
+		if(Zen.isKeyPressed("left"))
+		{
+
+		}
+		if(Zen.isKeyPressed("up"))
+		{
+
+		}
+		if(Zen.isKeyPressed("down"))
+		{
+
+		}
+	}
+
+
+}
