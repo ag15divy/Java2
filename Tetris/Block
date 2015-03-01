@@ -1,0 +1,86 @@
+package Tetris;
+
+import zen.core.Zen;
+
+public class block {
+	
+	public static final int UP = 1;
+	public static final int RIGHT = 2;
+	public static final int DOWN = 3;
+	public static final int LEFT = 4;
+	
+	block[][] board;
+	
+	int x; 
+	int y; 
+	int type;
+	int rotate; 
+	
+	public void move(){
+		if(y + 1 < Tetris.HEIGHT && board[x][y+1]== null){
+			board[x][y+1]= board[x][y];
+			board[x][y] = null;
+			y++;
+		}
+	}
+	public void moveLeft(){
+		if(x>0&& board[x - 1][y] == null ){
+			board[x-1][y] = board[x][y];
+			board[x][y] = null;
+			x = x-1;
+		}
+	}
+	public void moveRight(){
+		if(x + 1 < Tetris.WIDTH && board[x+1][y]== null){
+			board[x+1][y] = board[x][y];
+			board[x][y] = null;
+			x = x+1;
+		}
+	}
+	public boolean atBottom(){
+		if(y +1 == Tetris.HEIGHT){
+			return true;
+		}
+		if(board[x][y+1] != null){
+			return true;
+		}
+		return false;
+	}
+	public void rect(int x, int y, int width, int height ){
+		Zen.fillRect(x*Tetris.SCALE, y*Tetris.SCALE, Tetris.SCALE * width, Tetris.SCALE* height);
+}
+	public void draw(){
+		if(type == 1){
+			Zen.setColor("red");
+			rect(x, y-2, 1, 3);
+			rect(x, y, 2, 1);
+		}
+		if(type == 2){
+			Zen.setColor("blue");
+			rect(x, y-2, 1, 3);
+			rect(x, y-1, 2, 1);
+		}
+		if(type == 3){
+			Zen.setColor("green");
+			rect(x-1, y, 2, 1);
+			rect(x, y-1, 2, 1);
+		}
+		if(type == 4){
+			Zen.setColor("pink");
+			rect(x-1, y-1, 2, 1);
+		}
+		if(type == 5){
+			Zen.setColor("white");
+			rect(x+1, y+1, 3, 2);
+		}
+		if(type == 6){
+			Zen.setColor("purple");
+			rect(x+1, y+1, 1, 2);
+		}
+		if(type == 7){
+			Zen.setColor("yellow");
+			rect(x, y, 3, 1);
+		}
+	}
+	
+}
